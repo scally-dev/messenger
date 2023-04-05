@@ -12,6 +12,8 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import androidx.appcompat.widget.Toolbar
+import com.example.mymessenger.ui.ChatsFragment
+import com.example.mymessenger.ui.SettingsFragment
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
@@ -36,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFunc() {
         setSupportActionBar(mToolbar)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.dataContainer, ChatsFragment()).commit()
         createHeader()
         createDrawer()
     }
@@ -98,14 +102,19 @@ class MainActivity : AppCompatActivity() {
                     .withSelectable(false)
                     .withIcon(R.drawable.ic_menu_help)
             )
-            //слушает нажатия в меню на айтемы
+            //слушает нажатия в меню на айтемы 3
             .withOnDrawerItemClickListener(object: Drawer.OnDrawerItemClickListener{
                 override fun onItemClick(
                     view: View?,
                     position: Int,
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
-                    Toast.makeText(applicationContext, position.toString(), Toast.LENGTH_SHORT).show()
+                    when(position) {
+                        //по нажатию на айтем 106(настройки) появляется окно настроек
+                        7 -> supportFragmentManager.beginTransaction()
+                            .addToBackStack(null)  //возможность вернуться назад
+                            .replace(R.id.dataContainer, SettingsFragment()).commit()
+                    }
                     return false
                 }
             }).build()
