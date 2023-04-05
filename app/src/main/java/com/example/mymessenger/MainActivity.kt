@@ -2,6 +2,8 @@ package com.example.mymessenger
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import com.example.mymessenger.databinding.ActivityMainBinding
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
@@ -10,6 +12,8 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import androidx.appcompat.widget.Toolbar
+import com.mikepenz.materialdrawer.model.DividerDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,16 +43,72 @@ class MainActivity : AppCompatActivity() {
     private fun createDrawer() {
         mDrawer = DrawerBuilder()
             .withActivity(this)
+            //видимый тулбар 2
             .withToolbar(mToolbar)
             .withActionBarDrawerToggle(true)
+            //шапка бокового меню
             .withSelectedItem(-1)
             .withAccountHeader(mHeader)
+            //пункты меню
             .addDrawerItems(
                 PrimaryDrawerItem().withIdentifier(100)
                     .withIconTintingEnabled(true)
                     .withName("Создать группу")
                     .withSelectable(false)
-            ).build()
+                    .withIcon(R.drawable.ic_menu_create_groups),
+                PrimaryDrawerItem().withIdentifier(101)
+                    .withIconTintingEnabled(true)
+                    .withName("Создать секретный чат")
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_secret_chat),
+                PrimaryDrawerItem().withIdentifier(102)
+                    .withIconTintingEnabled(true)
+                    .withName("Создать канал")
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_create_channel),
+                PrimaryDrawerItem().withIdentifier(103)
+                    .withIconTintingEnabled(true)
+                    .withName("Контакты")
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_contacts),
+                PrimaryDrawerItem().withIdentifier(104)
+                    .withIconTintingEnabled(true)
+                    .withName("Звонки")
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_phone),
+                PrimaryDrawerItem().withIdentifier(105)
+                    .withIconTintingEnabled(true)
+                    .withName("Избранное")
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_favorites),
+                PrimaryDrawerItem().withIdentifier(106)
+                    .withIconTintingEnabled(true)
+                    .withName("Настройки")
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_settings),
+                DividerDrawerItem(), //разделитель
+                PrimaryDrawerItem().withIdentifier(107)
+                    .withIconTintingEnabled(true)
+                    .withName("Добавить друзей")
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_invate),
+                PrimaryDrawerItem().withIdentifier(108)
+                    .withIconTintingEnabled(true)
+                    .withName("Помощь")
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_help)
+            )
+            //слушает нажатия в меню на айтемы
+            .withOnDrawerItemClickListener(object: Drawer.OnDrawerItemClickListener{
+                override fun onItemClick(
+                    view: View?,
+                    position: Int,
+                    drawerItem: IDrawerItem<*>
+                ): Boolean {
+                    Toast.makeText(applicationContext, position.toString(), Toast.LENGTH_SHORT).show()
+                    return false
+                }
+            }).build()
     }
 
     private fun createHeader() {
