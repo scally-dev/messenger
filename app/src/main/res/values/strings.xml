@@ -2,4 +2,13 @@
     <string name="app_name">MyMessenger</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_default_username">Артём</string>
+    <string name="settings_default_status">В сети</string>
+    <string name="settings_text_account">Аккаунт</string>
+    <string name="settings_default_mail">some_mail@gmail.com</string>
+    <string name="settings_label_mail">Нажмите, чтобы изменить</string>
+    <string name="settings_default_login">suckmymemes</string>
+    <string name="settings_label_login">Имя пользователя</string>
+    <string name="settings_defult_bio">О себе</string>
+    <string name="settings_label_bio">Напишите немного о себе</string>
 </resources>
