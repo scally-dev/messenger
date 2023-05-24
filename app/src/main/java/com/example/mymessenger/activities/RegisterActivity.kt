@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import com.example.mymessenger.R
 import com.example.mymessenger.databinding.ActivityRegisterBinding
 import com.example.mymessenger.ui.fragments.EnterLoginFragment
+import com.example.mymessenger.utilits.initFirebase
 import com.example.mymessenger.utilits.replaceFragment
 
 class RegisterActivity : AppCompatActivity() {
@@ -15,6 +16,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        initFirebase()
     }
     override fun onStart() {
         super.onStart()

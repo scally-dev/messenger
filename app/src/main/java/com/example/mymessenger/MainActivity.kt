@@ -9,6 +9,7 @@ import com.example.mymessenger.activities.RegisterActivity
 import com.example.mymessenger.ui.fragments.ChatsFragment
 import com.example.mymessenger.ui.objects.AppDrawer
 import com.example.mymessenger.utilits.AUTH
+import com.example.mymessenger.utilits.initFirebase
 import com.example.mymessenger.utilits.replaceActivity
 import com.example.mymessenger.utilits.replaceFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -44,6 +45,6 @@ class MainActivity : AppCompatActivity() {
     private fun initFields() {
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
-        AUTH = FirebaseAuth.getInstance()
+        initFirebase()
     }
 }

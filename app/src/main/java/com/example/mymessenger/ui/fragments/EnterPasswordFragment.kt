@@ -7,13 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mymessenger.MainActivity
 import com.example.mymessenger.activities.RegisterActivity
-import com.example.mymessenger.utilits.AUTH
 import com.example.mymessenger.databinding.FragmentEnterPasswordBinding
-import com.example.mymessenger.utilits.AppTextWatcher
-import com.example.mymessenger.utilits.replaceActivity
-import com.example.mymessenger.utilits.showToast
+import com.example.mymessenger.utilits.*
 
-class EnterPasswordFragment(val mEmail: String) : Fragment() {
+class EnterPasswordFragment(val login: String) : Fragment() {
     private var _binding: FragmentEnterPasswordBinding? = null
     private val binding get() = _binding!!
 
@@ -24,7 +21,7 @@ class EnterPasswordFragment(val mEmail: String) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as RegisterActivity).title = mEmail
+        (activity as RegisterActivity).title = login
         binding.registerInputPassword.addTextChangedListener(AppTextWatcher {
                 val password = binding.registerInputPassword.text.toString()
                 if (password.length == 6) {
@@ -41,11 +38,22 @@ class EnterPasswordFragment(val mEmail: String) : Fragment() {
                 showToast("Добро пожаловать")
                 (activity as RegisterActivity).replaceActivity(MainActivity())
             } else showToast(task.exception?.message.toString())*/
-        AUTH.signInWithEmailAndPassword(mEmail, password)
+        AUTH.signInWithEmailAndPassword("$login@gmail.com", password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    showToast("Добро пожаловать")
-                    (activity as RegisterActivity).replaceActivity(MainActivity())
+                    val uid = AUTH.currentUser?.uid.toString()
+                    val dateMap = mutableMapOf<String, Any>()
+                    dateMap[CHILD_ID] = uid
+                    dateMap[CHILD_LOGIN] = login
+                    dateMap[CHILD_USERNAME] = uid
+
+                    REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
+                        .addOnCompleteListener { task2 ->
+                            if (task2.isSuccessful) {
+                                showToast("Добро пожаловать")
+                                (activity as RegisterActivity).replaceActivity(MainActivity())
+                            } else showToast(task2.exception?.message.toString())
+                        }
                 } else {
                     showToast(task.exception?.message.toString())
                 }

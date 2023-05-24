@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "154432113216",
+    "firebase_url": "https://mymessenger-ba36c-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "mymessenger-ba36c",
     "storage_bucket": "mymessenger-ba36c.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "154432113216-7pvid641sqa87oka4vf1mf47hjdf8eeu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mymessenger",
+            "certificate_hash": "b0703107660423ab3be14f05c7a1235e4ca67f96"
+          }
+        },
         {
           "client_id": "154432113216-ccvm0h4mbmouk2pnpetrusodpp7ngm7h.apps.googleusercontent.com",
           "client_type": 3
