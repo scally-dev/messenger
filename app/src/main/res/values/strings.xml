@@ -22,4 +22,8 @@
     <string name="register_title_your_login">Введите ваш логин</string>
     <string name="register_toast_enter_login">Введите логин</string>
     <string name="register_login_hint">your_login</string>
+    <string name="settings_hint_input_name">Имя</string>
+    <string name="settings_hint_input_surname">Фамилия (необязательно)</string>
+    <string name="settings_toast_name_is_empty">Имя не может быть пустым</string>
+    <string name="toast_data_update">Данные обновлены</string>
 </resources>
