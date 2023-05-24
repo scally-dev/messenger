@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar
 import com.example.mymessenger.activities.RegisterActivity
 import com.example.mymessenger.ui.fragments.ChatsFragment
 import com.example.mymessenger.ui.objects.AppDrawer
+import com.example.mymessenger.utilits.replaceActivity
+import com.example.mymessenger.utilits.replaceFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,13 +33,9 @@ class MainActivity : AppCompatActivity() {
         if (false){
             setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.dataContainer,
-                    ChatsFragment()
-                ).commit()
+            replaceFragment(ChatsFragment())
         } else {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            replaceActivity(RegisterActivity())
         }
     }
 

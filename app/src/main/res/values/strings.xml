@@ -20,5 +20,5 @@
     <string name="register_text_enter_password_from">Введите пароль от аккаунта</string>
     <string name="register_hint_default_password">your_password_123</string>
     <string name="register_title_your_login">Введите ваш логин</string>
-    <string name="register_toast_enter_phone">Введите логин</string>
+    <string name="register_toast_enter_login">Введите логин</string>
 </resources>

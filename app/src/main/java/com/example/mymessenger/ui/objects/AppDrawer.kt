@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.mymessenger.R
 import com.example.mymessenger.ui.fragments.SettingsFragment
+import com.example.mymessenger.utilits.replaceFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -90,9 +91,7 @@ class AppDrawer(val mainActivity: AppCompatActivity, val toolbar: Toolbar) {
                 ): Boolean {
                     when(position) {
                         //по нажатию на айтем 106(настройки) появляется окно настроек
-                        7 -> mainActivity.supportFragmentManager.beginTransaction()
-                            .addToBackStack(null)  //возможность вернуться назад
-                            .replace(R.id.dataContainer, SettingsFragment()).commit()
+                        7 -> mainActivity.replaceFragment(SettingsFragment())
                     }
                     return false
                 }

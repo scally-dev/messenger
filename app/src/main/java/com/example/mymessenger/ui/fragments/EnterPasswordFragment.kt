@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.mymessenger.R
 import com.example.mymessenger.databinding.FragmentEnterPasswordBinding
+import com.example.mymessenger.utilits.AppTextWatcher
+import com.example.mymessenger.utilits.showToast
 
 class EnterPasswordFragment : Fragment() {
     private var _binding: FragmentEnterPasswordBinding? = null
@@ -22,24 +24,16 @@ class EnterPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.registerInputPassword.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
+        binding.registerInputPassword.addTextChangedListener(AppTextWatcher {
                 val string = binding.registerInputPassword.text.toString()
                 if (string.length == 6) {
                     verifiCode()
                 }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
         })
     }
 
     private fun verifiCode() {
-        Toast.makeText(activity, "Ok", Toast.LENGTH_SHORT).show()
+        showToast("Ok")
     }
 
     override fun onDestroyView() {
