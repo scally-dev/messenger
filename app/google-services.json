@@ -1,62 +1,33 @@
 {
   "project_info": {
-    "project_number": "973400110273",
-    "project_id": "clone-telegram-a162e",
-    "storage_bucket": "clone-telegram-a162e.appspot.com"
+    "project_number": "154432113216",
+    "project_id": "mymessenger-ba36c",
+    "storage_bucket": "mymessenger-ba36c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:973400110273:android:f74fa5392ee866db311040",
+        "mobilesdk_app_id": "1:154432113216:android:e0353a1266cb2fd7592da5",
         "android_client_info": {
           "package_name": "com.example.mymessenger"
         }
       },
       "oauth_client": [
         {
-          "client_id": "973400110273-8189cquek6t9u9jeg6ctb71kid9q4n9n.apps.googleusercontent.com",
+          "client_id": "154432113216-ccvm0h4mbmouk2pnpetrusodpp7ngm7h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBoFlnrIlCRSf_Fp1VhO7WeuG52wSt6rnE"
+          "current_key": "AIzaSyDhL2o7IMMMNXqcYmXGTpDHx1TDtlkyjEA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "973400110273-8189cquek6t9u9jeg6ctb71kid9q4n9n.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:973400110273:android:4b16c90a7510b6e4311040",
-        "android_client_info": {
-          "package_name": "com.example.telegram"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "973400110273-8189cquek6t9u9jeg6ctb71kid9q4n9n.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBoFlnrIlCRSf_Fp1VhO7WeuG52wSt6rnE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "973400110273-8189cquek6t9u9jeg6ctb71kid9q4n9n.apps.googleusercontent.com",
+              "client_id": "154432113216-ccvm0h4mbmouk2pnpetrusodpp7ngm7h.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
