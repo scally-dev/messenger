@@ -15,7 +15,7 @@ import com.example.mymessenger.utilits.*
  * Use the [ChangeNameFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
+class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
 
     private var _binding: FragmentChangeNameBinding? = null
     private val binding get() = _binding!!
