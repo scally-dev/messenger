@@ -9,6 +9,11 @@
         <item name="android:background">@drawable/ripple_effect</item>
     </style>
 
+    <style name="actionMenu" parent="Theme.AppCompat.Light">
+        <item name="background">@color/white</item>
+        <item name="actionMenuTextColor">@color/black</item>
+    </style>
+
     <style name="normalText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
