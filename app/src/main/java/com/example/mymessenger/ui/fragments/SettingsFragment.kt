@@ -12,11 +12,10 @@ import com.example.mymessenger.MainActivity
 import com.example.mymessenger.R
 import com.example.mymessenger.activities.RegisterActivity
 import com.example.mymessenger.databinding.FragmentChangeNameBinding
-import com.example.mymessenger.utilits.AUTH
-import com.example.mymessenger.utilits.replaceActivity
 import com.example.mymessenger.databinding.FragmentSettingsBinding
-import com.example.mymessenger.utilits.USER
-import com.example.mymessenger.utilits.replaceFragment
+import com.example.mymessenger.utilits.*
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
@@ -43,7 +42,17 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         binding.settingsLogin.text = "@${USER.login}"
         binding.settingsBtnChangeLogin.setOnClickListener { replaceFragment(ChangeLoginFragment()) }
         binding.settingsBtnChangeBio.setOnClickListener { replaceFragment(ChangeBioFragment()) }
+        binding.settingsChangePhoto.setOnClickListener { (ChangePhotoUser()) }
     }
+
+    private fun ChangePhotoUser(){
+        CropImage.activity()
+            .setAspectRatio(1, 1)
+            .setRequestedSize(600, 600)
+            .setCropShape(CropImageView.CropShape.OVAL)
+            .start(APP_ACTIVITY)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity?.menuInflater?.inflate(R.menu.settings_action_menu, menu)
     }
@@ -51,7 +60,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         when(item.itemId){
             R.id.settings_menu_exit -> {
                 AUTH.signOut()
-                (activity as MainActivity).replaceActivity(RegisterActivity())
+                APP_ACTIVITY.replaceActivity(RegisterActivity())
             }
             R.id.settings_menu_change_name -> replaceFragment(ChangeNameFragment())
         }
