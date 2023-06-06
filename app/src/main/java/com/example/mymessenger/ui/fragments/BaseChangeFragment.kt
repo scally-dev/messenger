@@ -7,18 +7,20 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.mymessenger.MainActivity
 import com.example.mymessenger.R
 import com.example.mymessenger.utilits.APP_ACTIVITY
+import com.example.mymessenger.utilits.hideKeyboard
 
 
 open class BaseChangeFragment(layout: Int) : Fragment(layout) {
     override fun onStart() {
         super.onStart()
         setHasOptionsMenu(true)
-        (activity as MainActivity).mAppDrawer.disableDrawer()
+        APP_ACTIVITY.mAppDrawer.disableDrawer()
+        hideKeyboard()
     }
 
     override fun onStop() {
         super.onStop()
-        APP_ACTIVITY.hideKeyboard()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
