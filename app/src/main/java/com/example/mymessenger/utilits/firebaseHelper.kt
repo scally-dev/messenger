@@ -11,7 +11,10 @@ lateinit var AUTH:FirebaseAuth
 lateinit var UID:String
 lateinit var REF_DATABASE_ROOT: DatabaseReference
 lateinit var USER: User
+
 const val NODE_USERS = "users"
+const val NODE_LOGINS = "logins"
+
 const val CHILD_ID = "id"
 const val CHILD_LOGIN = "login"
 const val CHILD_USERNAME = "username"

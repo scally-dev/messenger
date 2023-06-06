@@ -41,6 +41,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         binding.settingsUsername.text = USER.username
         binding.settingsStatus.text = USER.status
         binding.settingsLogin.text = "@${USER.login}"
+        binding.settingsBtnChangeLogin.setOnClickListener { replaceFragment(ChangeLoginFragment()) }
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity?.menuInflater?.inflate(R.menu.settings_action_menu, menu)
