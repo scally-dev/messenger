@@ -31,7 +31,6 @@ class EnterPasswordFragment(val login: String) : Fragment() {
     }
 
     private fun verifiCode(password: String) {
-
         /*val credential = PhoneAuthProvider.getCredential(id, code)
         AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful){
@@ -46,14 +45,21 @@ class EnterPasswordFragment(val login: String) : Fragment() {
                     dateMap[CHILD_ID] = uid
                     dateMap[CHILD_LOGIN] = login
                     dateMap[CHILD_USERNAME] = uid
+                    //перенос в регистрацию
+                    REF_DATABASE_ROOT.child(NODE_LOGINS).child(login).setValue(uid)
+                        .addOnFailureListener { showToast(it.message.toString()) }
+                        .addOnSuccessListener {
 
-                    REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
-                        .addOnCompleteListener { task2 ->
-                            if (task2.isSuccessful) {
-                                showToast("Добро пожаловать")
-                                (activity as RegisterActivity).replaceActivity(MainActivity())
-                            } else showToast(task2.exception?.message.toString())
+                            REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
+                                .addOnSuccessListener {
+                                        showToast("Добро пожаловать")
+                                        (activity as RegisterActivity).replaceActivity(MainActivity())
+                                    }
+                                .addOnFailureListener{
+                                    showToast(it.message.toString())
+                                }
                         }
+
                 } else {
                     showToast(task.exception?.message.toString())
                 }
