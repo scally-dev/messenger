@@ -42,6 +42,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         binding.settingsBtnChangeLogin.setOnClickListener { replaceFragment(ChangeLoginFragment()) }
         binding.settingsBtnChangeBio.setOnClickListener { replaceFragment(ChangeBioFragment()) }
         binding.settingsChangePhoto.setOnClickListener { (ChangePhotoUser()) }
+        binding.settingsUserPhoto.downloadAndSetImage(USER.photoUrl)
     }
 
     private fun ChangePhotoUser(){
@@ -73,21 +74,13 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             val uri = CropImage.getActivityResult(data).uri
             val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
                 .child(CURRENT_UID)
-            path.putFile(uri).addOnCompleteListener { task1 ->
-                if (task1.isSuccessful) {
-                    path.downloadUrl.addOnCompleteListener { task2 ->
-                        if (task2.isSuccessful) {
-                            val photoUrl = task2.result.toString()
-                            REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
-                                .child(CHILD_PHOTO_URL).setValue(photoUrl)
-                                .addOnCompleteListener {
-                                    if (it.isSuccessful) {
-                                        binding.settingsUserPhoto.downloadAndSetImage(photoUrl)
-                                        showToast(getString(R.string.toast_data_update))
-                                        USER.photoUrl = photoUrl
-                                    }
-                                }
-                        }
+
+            putImageToStorage(uri,path) {
+                getUrlFromStorage(path) {
+                    putUrlToDatabase(it) {
+                        binding.settingsUserPhoto.downloadAndSetImage(it)
+                        showToast(getString(R.string.toast_data_update))
+                        USER.photoUrl = it
                     }
                 }
             }
