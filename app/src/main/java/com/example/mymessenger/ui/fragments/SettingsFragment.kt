@@ -43,7 +43,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         binding.settingsBtnChangeBio.setOnClickListener { replaceFragment(ChangeBioFragment()) }
         binding.settingsChangePhoto.setOnClickListener { (ChangePhotoUser()) }
         binding.settingsUserPhoto.downloadAndSetImage(USER.photoUrl)
-    }
+     }
 
     private fun ChangePhotoUser(){
         CropImage.activity()
@@ -81,6 +81,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                         binding.settingsUserPhoto.downloadAndSetImage(it)
                         showToast(getString(R.string.toast_data_update))
                         USER.photoUrl = it
+                        APP_ACTIVITY.mAppDrawer.updateHeader()
                     }
                 }
             }
