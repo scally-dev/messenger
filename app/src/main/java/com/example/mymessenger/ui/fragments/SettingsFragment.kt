@@ -37,7 +37,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     private fun initFields() {
         binding.settingsBio.text = USER.bio
         binding.settingsUsername.text = USER.username
-        binding.settingsStatus.text = USER.status
+        binding.settingsStatus.text = USER.state
         binding.settingsLogin.text = "@${USER.login}"
         binding.settingsBtnChangeLogin.setOnClickListener { replaceFragment(ChangeLoginFragment()) }
         binding.settingsBtnChangeBio.setOnClickListener { replaceFragment(ChangeBioFragment()) }

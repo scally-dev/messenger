@@ -5,6 +5,6 @@ data class User(
     var login: String = "",
     var username: String = "",
     var bio: String = "",
-    var status: String = "",
-    var photoUrl: String = ""
+    var state: String = "",
+    var photoUrl: String = "empty"
 )
