@@ -9,7 +9,7 @@ import com.example.mymessenger.utilits.*
 import java.util.*
 
 
-class ChangeLoginFragment : BaseFragment(R.layout.fragment_change_login) {
+class ChangeLoginFragment : BaseChangeFragment(R.layout.fragment_change_login) {
     lateinit var mNewLogin: String
 
     private var _binding: FragmentChangeLoginBinding? = null
@@ -22,23 +22,10 @@ class ChangeLoginFragment : BaseFragment(R.layout.fragment_change_login) {
 
     override fun onResume() {
         super.onResume()
-        setHasOptionsMenu(true)
         binding.settingsInputLogin.setText(USER.login)
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_menu_confirm, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings_confirm_change -> change()
-        }
-        return true
-    }
-
-    private fun change() {
+    override fun change() {
         mNewLogin = binding.settingsInputLogin.text.toString().lowercase(Locale.getDefault())
         if (mNewLogin.isEmpty()){
             showToast("Поле пустое")

@@ -18,6 +18,7 @@ const val NODE_LOGINS = "logins"
 const val CHILD_ID = "id"
 const val CHILD_LOGIN = "login"
 const val CHILD_USERNAME = "username"
+const val CHILD_BIO = "bio"
 
 
 fun initFirebase() {
