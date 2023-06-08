@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mymessenger.R
+import com.example.mymessenger.models.CommonModel
 import com.squareup.picasso.Picasso
 
 fun showToast(message:String){
@@ -56,3 +57,19 @@ fun ImageView.downloadAndSetImage(url:String) {
         .placeholder(R.drawable.default_photo)
         .into(this)
 }
+
+fun initContacts() {
+    /*if (checkPermission(READ_CONTACTS)){
+        showToast("Чтение контактов")
+    }*/
+    var arrayContacts = arrayListOf<CommonModel>()
+    var username = ""
+    var login = ""
+    val newModel = CommonModel()
+    newModel.username = username
+    newModel.login = login
+    arrayContacts.add(newModel)
+
+    /*updatePhonesToDatabase(arrayContacts)*/
+}
+

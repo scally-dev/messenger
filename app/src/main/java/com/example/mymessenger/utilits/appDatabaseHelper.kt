@@ -69,38 +69,25 @@ inline fun initUser(crossinline function: () -> Unit) {
         })
 }
 
-fun initContacts() {
-    /*if (checkPermission(READ_CONTACTS)){
-        showToast("Чтение контактов")
-    }*/
-    var arrayContacts = arrayListOf<CommonModel>()
-    var username = ""
-    var login = ""
-    val newModel = CommonModel()
-    newModel.username = username
-    newModel.login = login
-    arrayContacts.add(newModel)
-
-    /*updatePhonesToDatabase(arrayContacts)*/
-}
-
 /*
 
   сделать из этого запись контакта в базу
 
 fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
-    REF_DATABASE_ROOT.child(NODE_CONTACTS).addListenerForSingleValueEvent(AppValueEventListener {
-        it.children.forEach { snapshot ->
-            arrayContacts.forEach { contact ->
-                if (snapshot.key == contact.phone) {
-                    REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
-                        .child(snapshot.value.toString()).child(CHILD_ID)
-                        .setValue(snapshot.value.toString())
-                        .addOnFailureListener { showToast(it.message.toString()) }
+    if (AUTH.currentUser!=null){
+        REF_DATABASE_ROOT.child(NODE_CONTACTS).addListenerForSingleValueEvent(AppValueEventListener {
+            it.children.forEach { snapshot ->
+                arrayContacts.forEach { contact ->
+                    if (snapshot.key == contact.phone) {
+                        REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
+                            .child(snapshot.value.toString()).child(CHILD_ID)
+                            .setValue(snapshot.value.toString())
+                            .addOnFailureListener { showToast(it.message.toString()) }
+                    }
                 }
             }
-        }
-    })
+        })
+    }
 }*/
 
 fun DataSnapshot.getCommonModel(): CommonModel =
