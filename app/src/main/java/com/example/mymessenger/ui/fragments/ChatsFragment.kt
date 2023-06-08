@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mymessenger.R
 import com.example.mymessenger.databinding.FragmentChatsBinding
+import com.example.mymessenger.utilits.APP_ACTIVITY
 
 
 class ChatsFragment : Fragment(R.layout.fragment_chats) {
@@ -15,6 +16,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
     override fun onResume() {
         super.onResume()
+        APP_ACTIVITY.title = "Чаты"
 
     }
 

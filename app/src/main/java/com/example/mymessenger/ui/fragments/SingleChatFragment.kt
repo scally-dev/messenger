@@ -21,6 +21,15 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layout.fragment_single_chat) {
 
+    private var _binding: FragmentSingleChatBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = FragmentSingleChatBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+
     private lateinit var mListenerInfoToolbar: AppValueEventListener
     private lateinit var mReceivingUser: UserModel
     private lateinit var mToolbarInfo:View
@@ -37,6 +46,15 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
 
         mRefUser = REF_DATABASE_ROOT.child(NODE_USERS).child(contact.id)
         mRefUser.addValueEventListener(mListenerInfoToolbar)
+
+        binding.chatBtnSendMessage.setOnClickListener {
+            val message = binding.chatInputMessage.text.toString()
+            if (message.isEmpty()){
+                showToast("Введите сообщение")
+            } else sendMessage(message,contact.id, TYPE_TEXT){
+                binding.chatInputMessage.setText("")
+            }
+        }
     }
 
     private fun initInfoToolbar() {
