@@ -1,6 +1,6 @@
 package com.example.mymessenger.models
 
-data class User(
+data class UserModel(
     val id: String = "",
     var login: String = "",
     var username: String = "",
