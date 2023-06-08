@@ -9,7 +9,7 @@ import com.example.mymessenger.R
 import com.example.mymessenger.databinding.ContactItemBinding
 import com.example.mymessenger.databinding.FragmentContactsBinding
 import com.example.mymessenger.models.CommonModel
-import com.example.mymessenger.ui.fragments.BaseFragment
+import com.example.mymessenger.ui.fragments.single_chat.SingleChatFragment
 import com.example.mymessenger.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
