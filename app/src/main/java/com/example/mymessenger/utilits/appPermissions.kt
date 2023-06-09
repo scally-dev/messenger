@@ -5,7 +5,9 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
+
 const val PERMISSION_REQUEST = 200
+const val RECORD_AUDIO = android.Manifest.permission.RECORD_AUDIO
 
 fun checkPermission(permission: String): Boolean {
     /* Функция принимает разрешение и проверяет, если разрешение еще не было
