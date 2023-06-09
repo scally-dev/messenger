@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mymessenger.R
+import com.example.mymessenger.database.USER
+import com.example.mymessenger.database.setBioToDatabase
 import com.example.mymessenger.databinding.FragmentChangeBioBinding
 import com.example.mymessenger.utilits.*
 

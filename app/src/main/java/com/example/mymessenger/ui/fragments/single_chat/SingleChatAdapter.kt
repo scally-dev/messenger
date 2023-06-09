@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mymessenger.database.CURRENT_UID
 import com.example.mymessenger.databinding.MessageItemBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.utilits.*

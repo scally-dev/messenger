@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mymessenger.R
+import com.example.mymessenger.database.*
 import com.example.mymessenger.databinding.FragmentSingleChatBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.models.UserModel
 import com.example.mymessenger.ui.fragments.BaseFragment
 import com.example.mymessenger.utilits.*
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
 import de.hdodenhof.circleimageview.CircleImageView
@@ -100,7 +100,8 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
                         binding.chatInputMessage.setText("")
                         binding.chatBtnVoice.colorFilter = null
                         mAppVoiceRecorder.stopRecord { file, messageKey ->
-                            uploadFileToStorage(Uri.fromFile(file),messageKey)
+                            uploadFileToStorage(Uri.fromFile(file),messageKey,contact.id, TYPE_MESSAGE_VOICE)
+                            mSmoothScrollToPosition = true
                         }
                     }
                 }
@@ -208,15 +209,8 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
             val uri = CropImage.getActivityResult(data).uri
             val messageKey = getMessageKey(contact.id)
 
-            val path = REF_STORAGE_ROOT
-                .child(FOLDER_MESSAGE_IMAGE)
-                .child(messageKey)
-            putImageToStorage(uri, path) {
-                getUrlFromStorage(path) {
-                    sendMessageAsImage(contact.id,it,messageKey)
-                    mSmoothScrollToPosition = true
-                }
-            }
+            uploadFileToStorage(uri,messageKey,contact.id, TYPE_MESSAGE_IMAGE)
+            mSmoothScrollToPosition = true
         }
     }
 

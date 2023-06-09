@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.example.mymessenger.R
+import com.example.mymessenger.database.*
 
 import com.example.mymessenger.databinding.FragmentSettingsBinding
 import com.example.mymessenger.utilits.*
@@ -76,7 +77,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
                 .child(CURRENT_UID)
 
-            putImageToStorage(uri,path) {
+            putFileToStorage(uri,path) {
                 getUrlFromStorage(path) {
                     putUrlToDatabase(it) {
                         binding.settingsUserPhoto.downloadAndSetImage(it)

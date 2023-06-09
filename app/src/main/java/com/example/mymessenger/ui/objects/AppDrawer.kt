@@ -4,14 +4,12 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.mymessenger.R
 import com.example.mymessenger.ui.fragments.ContactsFragment
 import com.example.mymessenger.ui.fragments.SettingsFragment
 import com.example.mymessenger.utilits.APP_ACTIVITY
-import com.example.mymessenger.utilits.USER
+import com.example.mymessenger.database.USER
 import com.example.mymessenger.utilits.downloadAndSetImage
 import com.example.mymessenger.utilits.replaceFragment
 import com.mikepenz.materialdrawer.AccountHeader

@@ -1,5 +1,7 @@
 package com.example.mymessenger.utilits
 
+import com.example.mymessenger.database.*
+
 enum class AppStates(val state:String) {
     /* Класс перечисление состояний приложения*/
 

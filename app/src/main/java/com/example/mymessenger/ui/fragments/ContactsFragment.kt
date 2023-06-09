@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymessenger.R
+import com.example.mymessenger.database.*
 import com.example.mymessenger.databinding.ContactItemBinding
 import com.example.mymessenger.databinding.FragmentContactsBinding
 import com.example.mymessenger.models.CommonModel
