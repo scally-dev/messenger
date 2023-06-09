@@ -5,11 +5,14 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -18,30 +21,35 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mymessenger.R
 import com.example.mymessenger.database.*
+import com.example.mymessenger.databinding.ChoiceUploadBinding
 import com.example.mymessenger.databinding.FragmentSingleChatBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.models.UserModel
 import com.example.mymessenger.ui.fragments.BaseFragment
 import com.example.mymessenger.ui.message_recycler_view.view.AppViewFactory
 import com.example.mymessenger.utilits.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.reflect.Type
+import java.lang.reflect.TypeVariable
 
 
 class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layout.fragment_single_chat) {
 
     private var _binding: FragmentSingleChatBinding? = null
     private val binding get() = _binding!!
+    private var bindingU: ChoiceUploadBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentSingleChatBinding.inflate(inflater, container, false)
+        bindingU = ChoiceUploadBinding.inflate(inflater)
         return binding.root
     }
-
 
     private lateinit var mListenerInfoToolbar: AppValueEventListener
     private lateinit var mReceivingUser: UserModel
@@ -58,6 +66,7 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var mAppVoiceRecorder: AppVoiceRecorder
+    private lateinit var mBottomSheetBehavior: BottomSheetBehavior<*>
 
     override fun onResume() {
         super.onResume()
@@ -68,6 +77,11 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initFields() {
+        val bottomSheetChoice: View? = view?.findViewById(R.id.bottom_sheet_choice)
+        if (bottomSheetChoice != null) {
+            mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheetChoice)
+        }
+        mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         mAppVoiceRecorder = AppVoiceRecorder()
         mSwipeRefreshLayout = binding.chatSwipeRefresh
         mLayoutManager = LinearLayoutManager(this.context)
@@ -84,7 +98,7 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
             }
         })
 
-        binding.chatBtnAttach.setOnClickListener { attachFile() }
+        binding.chatBtnAttach.setOnClickListener { attach() }
 
         CoroutineScope(Dispatchers.IO).launch {
             binding.chatBtnVoice.setOnTouchListener { v, event ->
@@ -111,7 +125,19 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
         }
     }
 
-    private fun attachFile() {
+    private fun attach() {
+        mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        view?.findViewById<ImageView>(R.id.btn_attach_file)?.setOnClickListener { attachFile() }
+        view?.findViewById<ImageView>(R.id.btn_attach_image)?.setOnClickListener { attachImage() }
+    }
+
+    private fun attachFile(){
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "*/*"
+        startActivityForResult(intent, PICK_FILE_REQUEST_CODE)
+    }
+
+    private fun attachImage() {
         CropImage.activity()
             .setAspectRatio(1, 1)
             .setRequestedSize(250, 250)
@@ -204,14 +230,22 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         /* Активность которая запускается для получения картинки для фото пользователя */
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
-            && resultCode == Activity.RESULT_OK && data != null
-        ) {
-            val uri = CropImage.getActivityResult(data).uri
-            val messageKey = getMessageKey(contact.id)
+        if (data!=null){
+            when(requestCode){
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    val uri = CropImage.getActivityResult(data).uri
+                    val messageKey = getMessageKey(contact.id)
+                    uploadFileToStorage(uri,messageKey,contact.id, TYPE_MESSAGE_IMAGE)
+                    mSmoothScrollToPosition = true
+                }
 
-            uploadFileToStorage(uri,messageKey,contact.id, TYPE_MESSAGE_IMAGE)
-            mSmoothScrollToPosition = true
+                PICK_FILE_REQUEST_CODE -> {
+                    val uri = data.data
+                    val messageKey = getMessageKey(contact.id)
+                    uri?.let { uploadFileToStorage(it,messageKey,contact.id, TYPE_MESSAGE_FILE) }
+                    mSmoothScrollToPosition = true
+                }
+            }
         }
     }
 
