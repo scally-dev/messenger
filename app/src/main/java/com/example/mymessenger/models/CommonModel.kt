@@ -10,7 +10,7 @@ data class CommonModel(
 
 
     var text: String = "",
-    var imageUrl: String = "empty",
+    var fileUrl: String = "empty",
     var type: String = "",
     var from: String = "",
     var timeStamp: Any = ""
