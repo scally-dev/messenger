@@ -5,16 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymessenger.R
 import com.example.mymessenger.databinding.MessageItemBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.utilits.CURRENT_UID
+import com.example.mymessenger.utilits.DiffUtilCallback
 import com.example.mymessenger.utilits.asTime
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
 
     private var mListMessagesCache = emptyList<CommonModel>()
+    private lateinit var mDiffResult: DiffUtil.DiffResult
 
     inner class SingleChatHolder(private val binding: MessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val blocUserMessage: ConstraintLayout = binding.blocUserMessage
@@ -49,7 +52,14 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
     }
 
     fun setList(list: List<CommonModel>) {
-        mListMessagesCache = list
-        notifyDataSetChanged()
+
+    }
+    fun addItem(item:CommonModel){
+        val newList = mutableListOf<CommonModel>()
+        newList.addAll(mListMessagesCache)
+        newList.add(item)
+        mDiffResult = DiffUtil.calculateDiff(DiffUtilCallback(mListMessagesCache,newList))
+        mDiffResult.dispatchUpdatesTo(this)
+        mListMessagesCache = newList
     }
 }

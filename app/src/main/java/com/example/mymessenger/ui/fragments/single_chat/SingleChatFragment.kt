@@ -13,6 +13,7 @@ import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.models.UserModel
 import com.example.mymessenger.ui.fragments.BaseFragment
 import com.example.mymessenger.utilits.*
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -36,8 +37,8 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
     private lateinit var mRefMessages: DatabaseReference
     private lateinit var mAdapter: SingleChatAdapter
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mMessagesListener: AppValueEventListener
-    private var mListMessages = emptyList<CommonModel>()
+    private lateinit var mMessagesListener: ChildEventListener
+    private var mListMessages = mutableListOf<CommonModel>()
 
     override fun onResume() {
         super.onResume()
@@ -52,12 +53,11 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
             .child(CURRENT_UID)
             .child(contact.id)
         mRecyclerView.adapter = mAdapter
-        mMessagesListener = AppValueEventListener { dataSnapshot ->
-            mListMessages = dataSnapshot.children.map { it.getCommonModel() }
-            mAdapter.setList(mListMessages)
+        mMessagesListener = AppChildEventListener{
+            mAdapter.addItem(it.getCommonModel())
             mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
         }
-        mRefMessages.addValueEventListener(mMessagesListener)
+        mRefMessages.addChildEventListener(mMessagesListener)
     }
 
     private fun initToolbar() {
