@@ -1,5 +1,7 @@
 package com.example.mymessenger.ui.fragments.single_chat
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,7 @@ import com.example.mymessenger.ui.fragments.BaseFragment
 import com.example.mymessenger.utilits.*
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
+import com.theartofdev.edmodo.cropper.CropImage
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -57,6 +60,25 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
     private fun initFields() {
         mSwipeRefreshLayout = binding.chatSwipeRefresh
         mLayoutManager = LinearLayoutManager(this.context)
+        binding.chatInputMessage.addTextChangedListener(AppTextWatcher {
+            val string = binding.chatInputMessage.text.toString()
+            if (string.isEmpty()) {
+                binding.chatBtnSendMessage.visibility = View.GONE
+                binding.chatBtnAttach.visibility = View.VISIBLE
+            } else {
+                binding.chatBtnSendMessage.visibility = View.VISIBLE
+                binding.chatBtnAttach.visibility = View.GONE
+            }
+        })
+
+        binding.chatBtnAttach.setOnClickListener { attachFile() }
+    }
+
+    private fun attachFile() {
+        CropImage.activity()
+            .setAspectRatio(1, 1)
+            .setRequestedSize(250, 250)
+            .start(APP_ACTIVITY,this)
     }
 
     private fun initRecycleView() {
@@ -141,6 +163,26 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
         mToolbarInfo.findViewById<CircleImageView>(R.id.toolbar_chat_image).downloadAndSetImage(mReceivingUser.photoUrl)
         mToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_username).text = mReceivingUser.username
         mToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_status).text = mReceivingUser.state
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        /* Активность которая запускается для получения картинки для фото пользователя */
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
+            && resultCode == Activity.RESULT_OK && data != null
+        ) {
+            val uri = CropImage.getActivityResult(data).uri
+            val messageKey = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID)
+                .child(contact.id).push().key.toString()
+
+            val path = REF_STORAGE_ROOT
+                .child(FOLDER_MESSAGE_IMAGE)
+                .child(messageKey)
+            putImageToStorage(uri, path) {
+                getUrlFromStorage(path) {
+                    sendMessageAsImage(contact.id,it,messageKey)
+                }
+            }
+        }
     }
 
     override fun onPause() {
