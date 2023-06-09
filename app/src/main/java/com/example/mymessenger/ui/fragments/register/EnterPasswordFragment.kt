@@ -1,4 +1,4 @@
-package com.example.mymessenger.ui.fragments
+package com.example.mymessenger.ui.fragments.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mymessenger.MainActivity
-import com.example.mymessenger.activities.RegisterActivity
+
 import com.example.mymessenger.databinding.FragmentEnterPasswordBinding
 import com.example.mymessenger.utilits.*
 
@@ -21,7 +21,7 @@ class EnterPasswordFragment(val login: String) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as RegisterActivity).title = login
+        APP_ACTIVITY.title = login
         binding.registerInputPassword.addTextChangedListener(AppTextWatcher {
                 val password = binding.registerInputPassword.text.toString()
                 if (password.length == 6) {
@@ -53,7 +53,7 @@ class EnterPasswordFragment(val login: String) : Fragment() {
                             REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
                                 .addOnSuccessListener {
                                         showToast("Добро пожаловать")
-                                        (activity as RegisterActivity).replaceActivity(MainActivity())
+                                        restartActivity()
                                     }
                                 .addOnFailureListener{
                                     showToast(it.message.toString())

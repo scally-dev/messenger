@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mymessenger.databinding.ActivityMainBinding
 import androidx.appcompat.widget.Toolbar
-import com.example.mymessenger.activities.RegisterActivity
-import com.example.mymessenger.ui.fragments.ChatsFragment
+import com.example.mymessenger.ui.fragments.MainFragment
+import com.example.mymessenger.ui.fragments.register.EnterLoginFragment
 import com.example.mymessenger.ui.objects.AppDrawer
 import com.example.mymessenger.utilits.*
 import kotlinx.coroutines.CoroutineScope
@@ -47,13 +47,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
+        setSupportActionBar(mToolbar)
         if (AUTH.currentUser!=null){
-            setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            replaceFragment(ChatsFragment(), false)
+            replaceFragment(MainFragment(), false)
         } else {
-            replaceActivity(RegisterActivity())
-        }
+            replaceFragment(EnterLoginFragment(),false)        }
     }
 
     private fun initFields() {

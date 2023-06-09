@@ -46,34 +46,12 @@ class ChangeLoginFragment : BaseChangeFragment(R.layout.fragment_change_login) {
         REF_DATABASE_ROOT.child(NODE_LOGINS).child(mNewLogin).setValue(CURRENT_UID)
             .addOnCompleteListener {
                 if (it.isSuccessful){
-                    updateCurrentLogin()
+                    updateCurrentLogin(mNewLogin)
                 }
             }
     }
 
-    private fun updateCurrentLogin() {
-        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_LOGIN)
-            .setValue(mNewLogin)
-            .addOnCompleteListener {
-                if (it.isSuccessful){
-                    showToast(getString(R.string.toast_data_update))
-                    deleteOldLogin()
-                } else {
-                    showToast(it.exception?.message.toString())
-                }
-            }
-    }
 
-    private fun deleteOldLogin() {
-        REF_DATABASE_ROOT.child(NODE_LOGINS).child(USER.login).removeValue()
-            .addOnCompleteListener {
-                if (it.isSuccessful){
-                    showToast(getString(R.string.toast_data_update))
-                    fragmentManager?.popBackStack()
-                    USER.login = mNewLogin
-                } else {
-                    showToast(it.exception?.message.toString())
-                }
-            }
-    }
+
+
 }

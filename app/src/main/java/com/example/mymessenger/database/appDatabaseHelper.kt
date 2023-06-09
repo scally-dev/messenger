@@ -2,6 +2,7 @@ package com.example.mymessenger.utilits
 
 
 import android.net.Uri
+import com.example.mymessenger.R
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.models.UserModel
 import com.google.firebase.auth.FirebaseAuth
@@ -125,4 +126,53 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 
+}
+
+fun updateCurrentLogin(mNewLogin: String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_LOGIN)
+        .setValue(mNewLogin)
+        .addOnCompleteListener {
+            if (it.isSuccessful){
+                showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+                deleteOldLogin(mNewLogin)
+            } else {
+                showToast(it.exception?.message.toString())
+            }
+        }
+}
+
+private fun deleteOldLogin(mNewLogin: String) {
+    REF_DATABASE_ROOT.child(NODE_LOGINS).child(USER.login).removeValue()
+        .addOnSuccessListener {
+                showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+                APP_ACTIVITY.supportFragmentManager.popBackStack()
+                USER.login = mNewLogin
+
+        }.addOnFailureListener{ showToast(it.message.toString())}
+}
+
+fun setBioToDatabase(newBio: String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(
+        CURRENT_UID
+    ).child(CHILD_BIO)
+        .setValue(newBio)
+        .addOnSuccessListener {
+            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+            USER.bio = newBio
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
+        }.addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun setNameToDatabase(fullname: String) {
+    REF_DATABASE_ROOT.child(
+        NODE_USERS
+    ).child(CURRENT_UID).child(
+        CHILD_USERNAME
+    ).setValue(fullname)
+        .addOnSuccessListener {
+            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+            USER.username = fullname
+            APP_ACTIVITY.mAppDrawer.updateHeader()
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
+        }.addOnFailureListener { showToast(it.message.toString()) }
 }

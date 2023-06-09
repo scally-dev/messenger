@@ -10,7 +10,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.example.mymessenger.R
-import com.example.mymessenger.activities.RegisterActivity
+
 import com.example.mymessenger.databinding.FragmentSettingsBinding
 import com.example.mymessenger.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
@@ -61,7 +61,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             R.id.settings_menu_exit -> {
                 AUTH.signOut()
                 AppStates.updateState(AppStates.OFFLINE)
-                APP_ACTIVITY.replaceActivity(RegisterActivity())
+                restartActivity()
             }
             R.id.settings_menu_change_name -> replaceFragment(ChangeNameFragment())
         }
