@@ -1,6 +1,6 @@
-package com.example.mymessenger.ui.fragments.message_recycler_view.view
+package com.example.mymessenger.ui.message_recycler_view.view
 
-data class ViewImageMessage(
+data class ViewVoiceMessage(
     override val id: String,
     override val from: String,
     override val timeStamp: String,
@@ -8,7 +8,7 @@ data class ViewImageMessage(
     override val text: String = ""
 ) : MessageView {
     override fun getTypeView(): Int {
-        return MessageView.MESSAGE_IMAGE
+        return MessageView.MESSAGE_VOICE
     }
 
     override fun equals(other: Any?): Boolean {

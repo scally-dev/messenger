@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.io.File
 
 fun uploadFileToStorage(uri: Uri, messageKey: String, receivedID: String, typeMessage: String) {
     val path = REF_STORAGE_ROOT.child(
@@ -180,3 +181,10 @@ fun getMessageKey(id: String) = REF_DATABASE_ROOT.child(
     NODE_MESSAGES
 ).child(CURRENT_UID)
     .child(id).push().key.toString()
+
+fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
+    val path = REF_STORAGE_ROOT.storage.getReferenceFromUrl(fileUrl)
+    path.getFile(mFile)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}

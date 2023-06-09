@@ -8,7 +8,7 @@ import com.example.mymessenger.database.AUTH
 import com.example.mymessenger.database.initFirebase
 import com.example.mymessenger.database.initUser
 import com.example.mymessenger.ui.fragments.MainFragment
-import com.example.mymessenger.ui.fragments.register.EnterLoginFragment
+import com.example.mymessenger.ui.fragments.screens.EnterLoginFragment
 import com.example.mymessenger.ui.objects.AppDrawer
 import com.example.mymessenger.utilits.*
 import kotlinx.coroutines.CoroutineScope

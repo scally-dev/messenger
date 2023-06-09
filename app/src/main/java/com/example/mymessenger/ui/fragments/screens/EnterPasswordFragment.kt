@@ -1,4 +1,4 @@
-package com.example.mymessenger.ui.fragments.register
+package com.example.mymessenger.ui.fragments.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

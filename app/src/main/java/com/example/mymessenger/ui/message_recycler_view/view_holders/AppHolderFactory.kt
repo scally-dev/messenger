@@ -1,10 +1,10 @@
-package com.example.mymessenger.ui.fragments.message_recycler_view.view_holders
+package com.example.mymessenger.ui.message_recycler_view.view_holders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymessenger.R
-import com.example.mymessenger.ui.fragments.message_recycler_view.view.MessageView
+import com.example.mymessenger.ui.message_recycler_view.view.MessageView
 
 class AppHolderFactory {
     companion object {

@@ -1,4 +1,4 @@
-package com.example.mymessenger.ui.fragments.message_recycler_view.view
+package com.example.mymessenger.ui.message_recycler_view.view
 
 interface MessageView {
 

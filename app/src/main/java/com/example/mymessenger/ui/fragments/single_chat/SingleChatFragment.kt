@@ -22,7 +22,7 @@ import com.example.mymessenger.databinding.FragmentSingleChatBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.models.UserModel
 import com.example.mymessenger.ui.fragments.BaseFragment
-import com.example.mymessenger.ui.fragments.message_recycler_view.view.AppViewFactory
+import com.example.mymessenger.ui.message_recycler_view.view.AppViewFactory
 import com.example.mymessenger.utilits.*
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
@@ -225,5 +225,6 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
     override fun onDestroyView() {
         super.onDestroyView()
         mAppVoiceRecorder.releaseRecorder()
+        mAdapter.onDestroy()
     }
 }
