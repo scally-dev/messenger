@@ -22,6 +22,7 @@ import com.example.mymessenger.databinding.FragmentSingleChatBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.models.UserModel
 import com.example.mymessenger.ui.fragments.BaseFragment
+import com.example.mymessenger.ui.fragments.message_recycler_view.view.AppViewFactory
 import com.example.mymessenger.utilits.*
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
@@ -131,11 +132,11 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
             val message = it.getCommonModel()
 
             if (mSmoothScrollToPosition) {
-                mAdapter.addItemToBottom(message) {
+                mAdapter.addItemToBottom(AppViewFactory.getView(message)) {
                     mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
                 }
             } else {
-                mAdapter.addItemToTop(message) {
+                mAdapter.addItemToTop(AppViewFactory.getView(message)) {
                     mSwipeRefreshLayout.isRefreshing = false
                 }
             }

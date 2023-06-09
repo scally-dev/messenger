@@ -8,83 +8,72 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymessenger.database.CURRENT_UID
-import com.example.mymessenger.databinding.MessageItemBinding
+
 import com.example.mymessenger.models.CommonModel
+import com.example.mymessenger.ui.fragments.message_recycler_view.view.MessageView
+import com.example.mymessenger.ui.fragments.message_recycler_view.view_holders.AppHolderFactory
+import com.example.mymessenger.ui.fragments.message_recycler_view.view_holders.HolderImageMessage
+import com.example.mymessenger.ui.fragments.message_recycler_view.view_holders.HolderTextMessage
 import com.example.mymessenger.utilits.*
 
-class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
+class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var mListMessagesCache = mutableListOf<CommonModel>()
+    private var mListMessagesCache = mutableListOf<MessageView>()
 
-    inner class SingleChatHolder(private val binding: MessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        //Text
-        val blocUserMessage: ConstraintLayout = binding.blocUserMessage
-        val chatUserMessage: TextView = binding.chatUserMessage
-        val chatUserMessageTime: TextView = binding.chatUserMessageTime
 
-        val blocReceivedMessage: ConstraintLayout = binding.blocReceivedMessage
-        val chatReceivedMessage: TextView = binding.chatReceivedMessage
-        val chatReceivedMessageTime: TextView = binding.chatReceivedMessageTime
-        //Image
-        val blocReceivedImageMessage:ConstraintLayout = binding.blocReceivedImageMessage
-        val blocUserImageMessage:ConstraintLayout = binding.blocUserImageMessage
-        val chatUserImage: ImageView = binding.chatUserImage
-        val chatReceivedImage:ImageView = binding.chatReceivedImage
-        val chatUserImageMessageTime:TextView = binding.chatUserImageMessageTime
-        val chatReceivedImageMessageTime:TextView = binding.chatReceivedImageMessageTime
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return AppHolderFactory.getHolder(parent, viewType)
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleChatHolder {
-        val binding = MessageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SingleChatHolder(binding)
+    override fun getItemViewType(position: Int): Int {
+        return mListMessagesCache[position].getTypeView()
     }
 
     override fun getItemCount(): Int = mListMessagesCache.size
 
-    override fun onBindViewHolder(holder: SingleChatHolder, position: Int) {
-        when(mListMessagesCache[position].type){
-            TYPE_MESSAGE_TEXT -> drawMessageText(holder,position)
-            TYPE_MESSAGE_IMAGE -> drawMessageImage(holder,position)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is HolderImageMessage -> drawMessageImage(holder, position)
+            is HolderTextMessage -> drawMessageText(holder, position)
+            else -> {
+            }
         }
     }
 
-    private fun drawMessageImage(holder: SingleChatHolder, position: Int) {
-        holder.blocUserMessage.visibility = View.GONE
-        holder.blocReceivedMessage.visibility = View.GONE
+    private fun drawMessageImage(holder: HolderImageMessage, position: Int) {
+
 
         if (mListMessagesCache[position].from == CURRENT_UID) {
             holder.blocReceivedImageMessage.visibility = View.GONE
             holder.blocUserImageMessage.visibility = View.VISIBLE
             holder.chatUserImage.downloadAndSetImage(mListMessagesCache[position].fileUrl)
-            holder.chatUserImageMessageTime.text = mListMessagesCache[position].timeStamp.toString().asTime()
+            holder.chatUserImageMessageTime.text = mListMessagesCache[position].timeStamp.asTime()
         } else {
             holder.blocReceivedImageMessage.visibility = View.VISIBLE
             holder.blocUserImageMessage.visibility = View.GONE
             holder.chatReceivedImage.downloadAndSetImage(mListMessagesCache[position].fileUrl)
-            holder.chatReceivedImageMessageTime.text = mListMessagesCache[position].timeStamp.toString().asTime()
+            holder.chatReceivedImageMessageTime.text = mListMessagesCache[position].timeStamp.asTime()
         }
     }
 
-    private fun drawMessageText(holder: SingleChatHolder, position: Int) {
-        holder.blocReceivedImageMessage.visibility = View.GONE
-        holder.blocUserImageMessage.visibility = View.GONE
+    private fun drawMessageText(holder: HolderTextMessage, position: Int) {
+
 
         if (mListMessagesCache[position].from == CURRENT_UID) {
             holder.blocUserMessage.visibility = View.VISIBLE
             holder.blocReceivedMessage.visibility = View.GONE
             holder.chatUserMessage.text = mListMessagesCache[position].text
             holder.chatUserMessageTime.text =
-                mListMessagesCache[position].timeStamp.toString().asTime()
+                mListMessagesCache[position].timeStamp.asTime()
         } else {
             holder.blocUserMessage.visibility = View.GONE
             holder.blocReceivedMessage.visibility = View.VISIBLE
             holder.chatReceivedMessage.text = mListMessagesCache[position].text
             holder.chatReceivedMessageTime.text =
-                mListMessagesCache[position].timeStamp.toString().asTime()
+                mListMessagesCache[position].timeStamp.asTime()
         }
     }
 
-    fun addItemToBottom(item: CommonModel,
+    fun addItemToBottom(item: MessageView,
                         onSuccess: () -> Unit){
         if (!mListMessagesCache.contains(item)) {
             mListMessagesCache.add(item)
@@ -93,7 +82,7 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
         onSuccess()
     }
 
-    fun addItemToTop(item: CommonModel,
+    fun addItemToTop(item: MessageView,
                      onSuccess: () -> Unit) {
         if (!mListMessagesCache.contains(item)) {
             mListMessagesCache.add(item)
