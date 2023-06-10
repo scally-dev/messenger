@@ -73,6 +73,7 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
                         } else {
                             newModel.lastMessage = tempList[0].text
                         }
+                        newModel.type = TYPE_GROUP
                         mAdapter.updateListItems(newModel)
                     })
             })
@@ -97,6 +98,7 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
                         if (newModel.username.isEmpty()) {
                             newModel.username = newModel.login
                         }
+                        newModel.type = TYPE_CHAT
                         mAdapter.updateListItems(newModel)
                     })
             })
