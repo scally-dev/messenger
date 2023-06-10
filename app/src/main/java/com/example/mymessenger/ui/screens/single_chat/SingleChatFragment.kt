@@ -21,6 +21,7 @@ import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.models.UserModel
 import com.example.mymessenger.ui.screens.BaseFragment
 import com.example.mymessenger.ui.message_recycler_view.view.AppViewFactory
+import com.example.mymessenger.ui.screens.main_list.MainListFragment
 import com.example.mymessenger.utilits.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
@@ -265,7 +266,14 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         /* Слушатель выбора пунктов выпадающего меню */
         when (item.itemId) {
-
+            R.id.menu_clear_chat -> clearChat(contact.id){
+                showToast("Чат очищен")
+                replaceFragment(MainListFragment())
+            }
+            R.id.menu_delete_chat -> deleteChat(contact.id){
+                showToast("Чат удален")
+                replaceFragment(MainListFragment())
+            }
         }
         return true
     }
