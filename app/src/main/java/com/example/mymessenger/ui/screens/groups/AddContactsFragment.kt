@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymessenger.R
 import com.example.mymessenger.database.*
 import com.example.mymessenger.databinding.FragmentAddContactsBinding
-import com.example.mymessenger.databinding.FragmentSettingsBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.ui.screens.base.BaseFragment
 import com.example.mymessenger.utilits.*
@@ -24,7 +22,7 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: AddContactsAdapter
-    private val mRefMainList = REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(CURRENT_UID)
+    private val mRefContactsList = REF_DATABASE_ROOT.child(NODE_CONTACTS).child(CURRENT_UID)
     private val mRefUsers = REF_DATABASE_ROOT.child(NODE_USERS)
     private val mRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID)
     private var mListItems = listOf<CommonModel>()
@@ -46,7 +44,7 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
         mAdapter = AddContactsAdapter()
 
         // 1 запрос
-        mRefMainList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
+        mRefContactsList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
             mListItems = dataSnapshot.children.map { it.getCommonModel() }
             mListItems.forEach { model ->
 

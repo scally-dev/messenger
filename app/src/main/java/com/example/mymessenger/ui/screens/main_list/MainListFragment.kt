@@ -12,9 +12,7 @@ import com.example.mymessenger.databinding.FragmentMainListBinding
 import com.example.mymessenger.databinding.FragmentSettingsBinding
 
 import com.example.mymessenger.models.CommonModel
-import com.example.mymessenger.utilits.APP_ACTIVITY
-import com.example.mymessenger.utilits.AppValueEventListener
-import com.example.mymessenger.utilits.hideKeyboard
+import com.example.mymessenger.utilits.*
 
 
 class MainListFragment : Fragment(R.layout.fragment_main_list) {
@@ -46,35 +44,61 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
         mRecyclerView = binding.mainListRecycleView
         mAdapter = MainListAdapter()
 
-        // 1 запрос
         mRefMainList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
             mListItems = dataSnapshot.children.map { it.getCommonModel() }
             mListItems.forEach { model ->
+                when(model.type){
+                    TYPE_CHAT -> showChat(model)
+                    TYPE_GROUP -> showGroup(model)
+                }
 
-                // 2 запрос
-                mRefUsers.child(model.id)
-                    .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
-                        val newModel = dataSnapshot1.getCommonModel()
-
-                        // 3 запрос
-                        mRefMessages.child(model.id).limitToLast(1)
-                            .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot2 ->
-                                val tempList = dataSnapshot2.children.map { it.getCommonModel() }
-                                if (tempList.isEmpty()){
-                                    newModel.lastMessage = "Чат очищен"
-                                } else {
-                                    newModel.lastMessage = tempList[0].text
-                                }
-
-                                if (newModel.username.isEmpty()) {
-                                    newModel.username = newModel.login
-                                }
-                                mAdapter.updateListItems(newModel)
-                            })
-                    })
             }
         })
-
         mRecyclerView.adapter = mAdapter
+    }
+
+    private fun showGroup(model: CommonModel) {
+        // 2 запрос
+        REF_DATABASE_ROOT.child(NODE_GROUPS).child(model.id)
+            .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
+                val newModel = dataSnapshot1.getCommonModel()
+                // 3 запрос
+                REF_DATABASE_ROOT.child(NODE_GROUPS).child(model.id).child(NODE_MESSAGES)
+                    .limitToLast(1)
+                    .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot2 ->
+                        val tempList = dataSnapshot2.children.map { it.getCommonModel() }
+
+                        if (tempList.isEmpty()){
+                            newModel.lastMessage = "Чат очищен"
+                        } else {
+                            newModel.lastMessage = tempList[0].text
+                        }
+                        mAdapter.updateListItems(newModel)
+                    })
+            })
+
+    }
+
+    private fun showChat(model: CommonModel) {
+        // 2 запрос
+        mRefUsers.child(model.id)
+            .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
+                val newModel = dataSnapshot1.getCommonModel()
+                // 3 запрос
+                mRefMessages.child(model.id).limitToLast(1)
+                    .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot2 ->
+                        val tempList = dataSnapshot2.children.map { it.getCommonModel() }
+
+                        if (tempList.isEmpty()){
+                            newModel.lastMessage = "Чат очищен"
+                        } else {
+                            newModel.lastMessage = tempList[0].text
+                        }
+                        if (newModel.username.isEmpty()) {
+                            newModel.username = newModel.login
+                        }
+                        mAdapter.updateListItems(newModel)
+                    })
+            })
     }
 }
