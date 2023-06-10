@@ -1,4 +1,4 @@
-package com.example.mymessenger.ui.screens
+package com.example.mymessenger.ui.screens.contacts
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import com.example.mymessenger.database.*
 import com.example.mymessenger.databinding.ContactItemBinding
 import com.example.mymessenger.databinding.FragmentContactsBinding
 import com.example.mymessenger.models.CommonModel
+import com.example.mymessenger.ui.screens.base.BaseFragment
 import com.example.mymessenger.ui.screens.single_chat.SingleChatFragment
 import com.example.mymessenger.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter

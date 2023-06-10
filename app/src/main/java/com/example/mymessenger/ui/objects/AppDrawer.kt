@@ -6,10 +6,11 @@ import android.view.View
 import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.mymessenger.R
-import com.example.mymessenger.ui.screens.ContactsFragment
+import com.example.mymessenger.ui.screens.contacts.ContactsFragment
 import com.example.mymessenger.ui.screens.settings.SettingsFragment
 import com.example.mymessenger.utilits.APP_ACTIVITY
 import com.example.mymessenger.database.USER
+import com.example.mymessenger.ui.screens.groups.AddContactsFragment
 import com.example.mymessenger.utilits.downloadAndSetImage
 import com.example.mymessenger.utilits.replaceFragment
 import com.mikepenz.materialdrawer.AccountHeader
@@ -131,6 +132,7 @@ class AppDrawer() {
 
     private fun clickToItem(position:Int){
         when (position) {
+            1 -> replaceFragment(AddContactsFragment())
             7 -> replaceFragment(SettingsFragment())
             4 -> replaceFragment(ContactsFragment())
         }

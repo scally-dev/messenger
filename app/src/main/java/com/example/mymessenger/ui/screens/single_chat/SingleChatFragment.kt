@@ -19,7 +19,7 @@ import com.example.mymessenger.databinding.ChoiceUploadBinding
 import com.example.mymessenger.databinding.FragmentSingleChatBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.models.UserModel
-import com.example.mymessenger.ui.screens.BaseFragment
+import com.example.mymessenger.ui.screens.base.BaseFragment
 import com.example.mymessenger.ui.message_recycler_view.view.AppViewFactory
 import com.example.mymessenger.ui.screens.main_list.MainListFragment
 import com.example.mymessenger.utilits.*

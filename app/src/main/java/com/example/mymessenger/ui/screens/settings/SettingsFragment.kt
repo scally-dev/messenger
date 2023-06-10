@@ -13,7 +13,7 @@ import com.example.mymessenger.R
 import com.example.mymessenger.database.*
 
 import com.example.mymessenger.databinding.FragmentSettingsBinding
-import com.example.mymessenger.ui.screens.BaseFragment
+import com.example.mymessenger.ui.screens.base.BaseFragment
 import com.example.mymessenger.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView

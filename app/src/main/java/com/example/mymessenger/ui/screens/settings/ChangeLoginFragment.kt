@@ -5,7 +5,7 @@ import android.view.*
 import com.example.mymessenger.R
 import com.example.mymessenger.database.*
 import com.example.mymessenger.databinding.FragmentChangeLoginBinding
-import com.example.mymessenger.ui.screens.BaseChangeFragment
+import com.example.mymessenger.ui.screens.base.BaseChangeFragment
 import com.example.mymessenger.utilits.*
 import java.util.*
 

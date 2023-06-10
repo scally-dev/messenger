@@ -6,7 +6,7 @@ import com.example.mymessenger.R
 import com.example.mymessenger.database.USER
 import com.example.mymessenger.database.setNameToDatabase
 import com.example.mymessenger.databinding.FragmentChangeNameBinding
-import com.example.mymessenger.ui.screens.BaseChangeFragment
+import com.example.mymessenger.ui.screens.base.BaseChangeFragment
 import com.example.mymessenger.utilits.*
 
 
