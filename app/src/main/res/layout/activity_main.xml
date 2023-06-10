@@ -17,6 +17,10 @@
         android:id="@+id/toolbar_info"
         android:visibility="gone"
         layout="@layout/toolbar_info"/>
+        <include
+            android:id="@+id/toolbar_contact"
+            android:visibility="gone"
+            layout="@layout/toolbar_contact"/>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout

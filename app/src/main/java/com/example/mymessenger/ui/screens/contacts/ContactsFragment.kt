@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymessenger.R
 import com.example.mymessenger.database.*
@@ -16,6 +19,7 @@ import com.example.mymessenger.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
     private lateinit var binding: FragmentContactsBinding
@@ -24,6 +28,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
     private lateinit var mRefContacts: DatabaseReference
     private lateinit var mRefUsers: DatabaseReference
     private lateinit var mRefUsersListener:AppValueEventListener
+    private lateinit var mToolbarContacts:View
     private  var mapListeners = hashMapOf<DatabaseReference,AppValueEventListener>()
 
     override fun onResume() {
@@ -34,7 +39,33 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initContactsToolbar()
         binding = FragmentContactsBinding.bind(view)
+    }
+
+    private fun initContactsToolbar() {
+        mToolbarContacts = APP_ACTIVITY.mToolbar.findViewById<ConstraintLayout>(R.id.toolbar_contact)
+        mToolbarContacts.visibility = View.VISIBLE
+
+        val toolbarContactFind = mToolbarContacts.findViewById<EditText>(R.id.toolbar_conatct_find)
+
+        mToolbarContacts.findViewById<CircleImageView>(R.id.toolbar_contact_image).setOnClickListener {
+            toolbarContactFind.visibility = View.VISIBLE
+            mToolbarContacts.findViewById<CircleImageView>(R.id.toolbar_contact_image).visibility = View.INVISIBLE
+            toolbarContactFind.addTextChangedListener(AppTextWatcher {
+                val string = toolbarContactFind.text.toString()
+                REF_DATABASE_ROOT.child(NODE_LOGINS).addListenerForSingleValueEvent(
+                    AppValueEventListener {
+                        it.children.forEach { snapshot ->
+                            if (string == snapshot.key) {
+                                showToast(string)
+                            }
+                        }
+                    })
+            })
+            APP_ACTIVITY.title = "Контакты"
+
+        }
     }
 
     private fun initRecycleView() {
