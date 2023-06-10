@@ -1,4 +1,4 @@
-package com.example.mymessenger.ui.fragments
+package com.example.mymessenger.ui.screens
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -13,6 +13,10 @@ import com.example.mymessenger.R
 import com.example.mymessenger.database.*
 
 import com.example.mymessenger.databinding.FragmentSettingsBinding
+import com.example.mymessenger.ui.screens.BaseFragment
+import com.example.mymessenger.ui.screens.ChangeBioFragment
+import com.example.mymessenger.ui.screens.ChangeLoginFragment
+import com.example.mymessenger.ui.screens.ChangeNameFragment
 import com.example.mymessenger.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView

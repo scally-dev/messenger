@@ -7,8 +7,8 @@ import androidx.appcompat.widget.Toolbar
 import com.example.mymessenger.database.AUTH
 import com.example.mymessenger.database.initFirebase
 import com.example.mymessenger.database.initUser
-import com.example.mymessenger.ui.fragments.MainFragment
-import com.example.mymessenger.ui.fragments.screens.EnterLoginFragment
+import com.example.mymessenger.ui.screens.main_list.MainListFragment
+import com.example.mymessenger.ui.screens.register.EnterLoginFragment
 import com.example.mymessenger.ui.objects.AppDrawer
 import com.example.mymessenger.utilits.*
 import kotlinx.coroutines.CoroutineScope
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mToolbar)
         if (AUTH.currentUser!=null){
             mAppDrawer.create()
-            replaceFragment(MainFragment(), false)
+            replaceFragment(MainListFragment(), false)
         } else {
             replaceFragment(EnterLoginFragment(),false)        }
     }

@@ -1,18 +1,15 @@
-package com.example.mymessenger.ui.fragments.single_chat
+package com.example.mymessenger.ui.screens.single_chat
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -25,7 +22,7 @@ import com.example.mymessenger.databinding.ChoiceUploadBinding
 import com.example.mymessenger.databinding.FragmentSingleChatBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.models.UserModel
-import com.example.mymessenger.ui.fragments.BaseFragment
+import com.example.mymessenger.ui.screens.BaseFragment
 import com.example.mymessenger.ui.message_recycler_view.view.AppViewFactory
 import com.example.mymessenger.utilits.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -35,8 +32,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.reflect.Type
-import java.lang.reflect.TypeVariable
 
 
 class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layout.fragment_single_chat) {
