@@ -11,6 +11,7 @@ import com.example.mymessenger.databinding.FragmentCreateGroupBinding
 import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.ui.screens.base.BaseFragment
 import com.example.mymessenger.utilits.APP_ACTIVITY
+import com.example.mymessenger.utilits.getPlurals
 import com.example.mymessenger.utilits.hideKeyboard
 import com.example.mymessenger.utilits.showToast
 
@@ -29,11 +30,11 @@ class CreateGroupFragment(private var listContacts:List<CommonModel>): BaseFragm
     override fun onResume() {
         super.onResume()
         APP_ACTIVITY.title = getString(R.string.create_group)
-        APP_ACTIVITY.mAppDrawer.enableDrawer()
         hideKeyboard()
         initRecyclerView()
         binding.createGroupBtnComplete.setOnClickListener { showToast("Click") }
         binding.createGroupInputName.requestFocus()
+        binding.createGroupCounts.text = getPlurals(listContacts.size)
     }
 
     private fun initRecyclerView() {

@@ -11,12 +11,10 @@ import com.example.mymessenger.database.*
 import com.example.mymessenger.databinding.FragmentAddContactsBinding
 import com.example.mymessenger.databinding.FragmentSettingsBinding
 import com.example.mymessenger.models.CommonModel
-import com.example.mymessenger.utilits.APP_ACTIVITY
-import com.example.mymessenger.utilits.AppValueEventListener
-import com.example.mymessenger.utilits.hideKeyboard
-import com.example.mymessenger.utilits.replaceFragment
+import com.example.mymessenger.ui.screens.base.BaseFragment
+import com.example.mymessenger.utilits.*
 
-class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
+class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
     private var _binding: FragmentAddContactsBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,13 +30,14 @@ class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
     private var mListItems = listOf<CommonModel>()
 
     override fun onResume() {
+        listContacts.clear()
         super.onResume()
         APP_ACTIVITY.title = "Добавить участника"
-        APP_ACTIVITY.mAppDrawer.enableDrawer()
         hideKeyboard()
         initRecyclerView()
         binding.addContactsBtnNext.setOnClickListener {
-            replaceFragment(CreateGroupFragment(listContacts))
+            if (listContacts.isEmpty()) showToast("Добавьте участника")
+            else replaceFragment(CreateGroupFragment(listContacts))
             }
         }
 
