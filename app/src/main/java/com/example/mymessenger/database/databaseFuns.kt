@@ -18,7 +18,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.File
 
-fun uploadFileToStorage(uri: Uri, messageKey: String, receivedID: String, typeMessage: String) {
+fun uploadFileToStorage(uri: Uri, messageKey: String, receivedID: String, typeMessage: String, filename:String = "") {
     val path = REF_STORAGE_ROOT.child(
         FOLDER_FILES
     ).child(messageKey)
@@ -28,7 +28,8 @@ fun uploadFileToStorage(uri: Uri, messageKey: String, receivedID: String, typeMe
                 receivedID,
                 it,
                 messageKey,
-                typeMessage
+                typeMessage,
+                filename
             )
         }
     }
@@ -156,7 +157,8 @@ fun setNameToDatabase(fullname: String) {
 fun sendMessageAsFile(receivingUserID: String,
                       fileUrl: String,
                       messageKey: String,
-                      typeMessage: String) {
+                      typeMessage: String,
+                      filename: String) {
 
     val refDialogUser = "$NODE_MESSAGES/$CURRENT_UID/$receivingUserID"
     val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserID/$CURRENT_UID"
@@ -167,6 +169,7 @@ fun sendMessageAsFile(receivingUserID: String,
     mapMessage[CHILD_ID] = messageKey
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
     mapMessage[CHILD_FILE_URL] = fileUrl
+    mapMessage[CHILD_TEXT] = filename
 
     val mapDialog = hashMapOf<String, Any>()
     mapDialog["$refDialogUser/$messageKey"] = mapMessage

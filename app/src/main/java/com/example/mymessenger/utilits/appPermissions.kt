@@ -1,5 +1,6 @@
 package com.example.mymessenger.utilits
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.ActivityCompat
@@ -8,6 +9,7 @@ import androidx.core.content.ContextCompat
 
 const val PERMISSION_REQUEST = 200
 const val RECORD_AUDIO = android.Manifest.permission.RECORD_AUDIO
+const val WRITE_FILES = Manifest.permission.WRITE_EXTERNAL_STORAGE
 
 fun checkPermission(permission: String): Boolean {
     /* Функция принимает разрешение и проверяет, если разрешение еще не было
