@@ -1,10 +1,11 @@
-package com.example.mymessenger.ui.screens
+package com.example.mymessenger.ui.screens.settings
 
 import android.os.Bundle
 import android.view.*
 import com.example.mymessenger.R
 import com.example.mymessenger.database.*
 import com.example.mymessenger.databinding.FragmentChangeLoginBinding
+import com.example.mymessenger.ui.screens.BaseChangeFragment
 import com.example.mymessenger.utilits.*
 import java.util.*
 

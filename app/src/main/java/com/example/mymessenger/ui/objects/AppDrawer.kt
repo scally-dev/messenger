@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.mymessenger.R
 import com.example.mymessenger.ui.screens.ContactsFragment
-import com.example.mymessenger.ui.screens.SettingsFragment
+import com.example.mymessenger.ui.screens.settings.SettingsFragment
 import com.example.mymessenger.utilits.APP_ACTIVITY
 import com.example.mymessenger.database.USER
 import com.example.mymessenger.utilits.downloadAndSetImage

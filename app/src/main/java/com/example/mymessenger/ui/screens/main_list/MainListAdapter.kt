@@ -7,7 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymessenger.R
 import com.example.mymessenger.models.CommonModel
+import com.example.mymessenger.ui.screens.single_chat.SingleChatFragment
 import com.example.mymessenger.utilits.downloadAndSetImage
+import com.example.mymessenger.utilits.replaceFragment
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
@@ -23,7 +25,11 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainListHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
-        return MainListHolder(view)
+        val holder = MainListHolder(view)
+        holder.itemView.setOnClickListener {
+            replaceFragment(SingleChatFragment(listItems[holder.adapterPosition]))
+        }
+        return holder
     }
 
     override fun getItemCount(): Int = listItems.size

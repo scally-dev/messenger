@@ -1,4 +1,4 @@
-package com.example.mymessenger.ui.screens
+package com.example.mymessenger.ui.screens.settings
 
 import android.os.Bundle
 import android.view.*
@@ -6,6 +6,7 @@ import com.example.mymessenger.R
 import com.example.mymessenger.database.USER
 import com.example.mymessenger.database.setNameToDatabase
 import com.example.mymessenger.databinding.FragmentChangeNameBinding
+import com.example.mymessenger.ui.screens.BaseChangeFragment
 import com.example.mymessenger.utilits.*
 
 
