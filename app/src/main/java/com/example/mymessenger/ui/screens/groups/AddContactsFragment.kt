@@ -14,6 +14,7 @@ import com.example.mymessenger.models.CommonModel
 import com.example.mymessenger.utilits.APP_ACTIVITY
 import com.example.mymessenger.utilits.AppValueEventListener
 import com.example.mymessenger.utilits.hideKeyboard
+import com.example.mymessenger.utilits.replaceFragment
 
 class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
     private var _binding: FragmentAddContactsBinding? = null
@@ -37,11 +38,9 @@ class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
         hideKeyboard()
         initRecyclerView()
         binding.addContactsBtnNext.setOnClickListener {
-            listContacts.forEach {
-                println(it.id)
+            replaceFragment(CreateGroupFragment(listContacts))
             }
         }
-    }
 
     private fun initRecyclerView() {
         mRecyclerView = binding.addContactsRecycleView
