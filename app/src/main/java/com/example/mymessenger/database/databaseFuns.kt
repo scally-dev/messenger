@@ -142,6 +142,8 @@ fun setBioToDatabase(newBio: String) {
 }
 
 fun setNameToDatabase(fullname: String) {
+    REF_DATABASE_ROOT.child(NODE_USERNAMES).child(USER.username).removeValue()
+    REF_DATABASE_ROOT.child(NODE_USERNAMES).child(fullname).setValue(CURRENT_UID)
     REF_DATABASE_ROOT.child(
         NODE_USERS
     ).child(CURRENT_UID).child(

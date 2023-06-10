@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.mymessenger.R
+import com.example.mymessenger.database.NODE_LOGINS
+import com.example.mymessenger.database.REF_DATABASE_ROOT
 
 import com.example.mymessenger.databinding.FragmentEnterLoginBinding
+import com.example.mymessenger.utilits.AppValueEventListener
 import com.example.mymessenger.utilits.replaceFragment
 import com.example.mymessenger.utilits.showToast
+import java.util.*
 
 
 class EnterLoginFragment : Fragment(R.layout.fragment_enter_login) {
 
-    private lateinit var mEmail:String
+    private lateinit var mLogin:String
     //private lateinit var mCallback: EmailAuthProvider.
 
 
@@ -28,23 +32,28 @@ class EnterLoginFragment : Fragment(R.layout.fragment_enter_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.registerBtnNext.setOnClickListener { sendCode() }
+        binding.registerBtnNext.setOnClickListener { checkLogin() }
     }
 
-    private fun sendCode() {
-        if (binding.registerInputLogin.text.toString().isEmpty()) {
+    private fun checkLogin() {
+        mLogin = binding.registerInputLogin.text.toString().lowercase(Locale.getDefault())
+        if (mLogin.isEmpty()) {
             showToast(getString(R.string.register_toast_enter_login))
         } else {
-            mEmail = binding.registerInputLogin.text.toString()
-            replaceFragment(EnterPasswordFragment(mEmail))
+            REF_DATABASE_ROOT.child(NODE_LOGINS)
+                .addListenerForSingleValueEvent(AppValueEventListener {
+                    if (it.hasChild(mLogin)) {
+                        replaceFragment(EnterPasswordFragment(mLogin, true))
+                    } else {
+                        replaceFragment(EnterPasswordFragment(mLogin, false))
+                    }
+                })
+
         }
     }
-    private fun authUser() {
-
+    fun change() {
 
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
