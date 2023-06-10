@@ -20,6 +20,7 @@ const val NODE_USERS = "users"
 const val NODE_MESSAGES = "messages"
 const val NODE_LOGINS = "logins"
 const val NODE_CONTACTS = "contacts"
+const val NODE_MAIN_LIST = "main_list"
 
 const val CHILD_ID = "id"
 const val CHILD_LOGIN = "login"

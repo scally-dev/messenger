@@ -217,6 +217,7 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
             if (message.isEmpty()){
                 showToast("Введите сообщение")
             } else sendMessage(message,contact.id, TYPE_TEXT){
+                saveToMainList(contact.id, TYPE_CHAT)
                 binding.chatInputMessage.setText("")
             }
         }
